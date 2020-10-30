@@ -19,7 +19,7 @@ const teamMembers = [];
 createTeam();
 
 function createTeam() {
-    inquirer.prompt({
+    inquirer.prompt([{
         message: "Enter team member's name",
         name: "name"
     },
@@ -29,7 +29,7 @@ function createTeam() {
         choices: [
             "Engineer",
             "Intern",
-            "Manager"
+            "Manager",
         ],
         name: "role"
     },
@@ -40,7 +40,7 @@ function createTeam() {
     {
         message: "Enter team member's email address",
         name: "email"
-    })
+    }])
 
     .then(function ({name, role, id, email}) {
         let roleName = "";
@@ -86,6 +86,7 @@ function createTeam() {
         );
     });
 };
+
 
 
 // After the user has input all employees desired, call the `render` function (required
