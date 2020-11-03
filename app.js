@@ -36,14 +36,13 @@ function startProfile() {
             name: "id",
             message: "What is your Engineer's id?",
             validate: answer => {
-                console.log("hi");
                 if (isNAN(answer)) {
                     return "Please enter numerical value";
                 }
                 if (teamId.includes(answer)) {
                     return "This id is currently in use."
                 }
-                else{
+                else {
                     return true;
                 }
             }
@@ -53,11 +52,16 @@ function startProfile() {
             name: "email",
             message: "What is your Engineer's email?",
             validate: answer => {
-                if (answer !== "") {
-                    return true;
+                    var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                    if (answer.match(mailformat)) {
+                        alert("Valid email address!");
+                        return true;
+                    }
+                    else {
+                        alert("You have entered an invalid email address!");
+                        return false;
+                    }
                 }
-                return "Please enter at least one character."
-            }
         },
         {
             type: "input",
@@ -73,7 +77,7 @@ function startProfile() {
             const newEngineer = new Engineer(answer.name, answer.id, answer.email, answer.github);
             teamMembers.push(newEngineer);
             teamId.push(answer.id);
-            createTeam(); 
+            createTeam();
         });
     }
 
@@ -94,10 +98,16 @@ function startProfile() {
             name: "id",
             message: "What is your Interns's id?",
             validate: answer => {
-                if (answer !== "") {
+                console.log("hi");
+                if (isNAN(answer)) {
+                    return "Please enter numerical value";
+                }
+                if (teamId.includes(answer)) {
+                    return "This id is currently in use."
+                }
+                else {
                     return true;
                 }
-                return "Please enter at least one character."
             }
         },
         {
@@ -105,10 +115,15 @@ function startProfile() {
             name: "email",
             message: "What is your Intern's email?",
             validate: answer => {
-                if (answer !== "") {
+                var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                if (answer.match(mailformat)) {
+                    alert("Valid email address!");
                     return true;
                 }
-                return "Please enter at least one character."
+                else {
+                    alert("You have entered an invalid email address!");
+                    return false;
+                }
             }
         },
         {
@@ -125,7 +140,7 @@ function startProfile() {
             const newIntern = new Intern(answer.name, answer.id, answer.email, answer.school);
             teamMembers.push(newIntern);
             teamId.push(answer.id);
-            createTeam(); 
+            createTeam();
         });
     }
 
@@ -146,10 +161,15 @@ function startProfile() {
             name: "id",
             message: "What is your id?",
             validate: answer => {
-                if (answer !== "") {
+                if (isNAN(answer)) {
+                    return "Please enter numerical value";
+                }
+                if (teamId.includes(answer)) {
+                    return "This id is currently in use."
+                }
+                else {
                     return true;
                 }
-                return "Please enter at least one character."
             }
         },
         {
@@ -157,10 +177,15 @@ function startProfile() {
             name: "email",
             message: "What is your email?",
             validate: answer => {
-                if (answer !== "") {
+                var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                if (answer.match(mailformat)) {
+                    alert("Valid email address!");
                     return true;
                 }
-                return "Please enter at least one character."
+                else {
+                    alert("You have entered an invalid email address!");
+                    return false;
+                }
             }
         },
         {
@@ -174,10 +199,10 @@ function startProfile() {
                 return "Please enter at least one character."
             }
         }]).then(answer => {
-            const newManager = new Manager (answer.name, answer.id, answer.email, answer.officeNumber);
+            const newManager = new Manager(answer.name, answer.id, answer.email, answer.officeNumber);
             teamMembers.push(newManager);
             teamId.push(answer.id);
-            createTeam(); 
+            createTeam();
         });
     }
 
@@ -193,17 +218,17 @@ function startProfile() {
                 "Intern",
                 "Team Complete"
             ]
-        }]).then (memberRole => {
-                switch (memberRole.addTeamMember) {
-                    case "Engineer":
-                        addEngineer()
-                        break;
-                    case "Intern":
-                        addIntern()
-                        break;
-                    default:
-                        teamHTML();
-                }
+        }]).then(memberRole => {
+            switch (memberRole.addTeamMember) {
+                case "Engineer":
+                    addEngineer()
+                    break;
+                case "Intern":
+                    addIntern()
+                    break;
+                default:
+                    teamHTML();
+            }
         });
     }
 
@@ -214,7 +239,7 @@ function startProfile() {
         }
         fs.writeFileSync(outputPath, render(teamMembers), "utf8");
     }
-    
+
     addManager();
 
 }
