@@ -15,7 +15,6 @@ const render = require("./lib/htmlRenderer");
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 const teamMembers = [];
-const teamId = [];
 
 function startProfile() {
 
@@ -36,15 +35,10 @@ function startProfile() {
             name: "id",
             message: "What is your Engineer's id?",
             validate: answer => {
-                if (isNAN(answer)) {
-                    return "Please enter numerical value";
-                }
-                if (teamId.includes(answer)) {
-                    return "This id is currently in use."
-                }
-                else {
+                if (answer !== "") {
                     return true;
                 }
+                return "Please enter at least one character."
             }
         },
         {
@@ -52,16 +46,11 @@ function startProfile() {
             name: "email",
             message: "What is your Engineer's email?",
             validate: answer => {
-                    var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-                    if (answer.match(mailformat)) {
-                        alert("Valid email address!");
-                        return true;
-                    }
-                    else {
-                        alert("You have entered an invalid email address!");
-                        return false;
-                    }
+                if (answer !== "") {
+                    return true;
                 }
+                return "Please enter at least one character."
+            }
         },
         {
             type: "input",
@@ -76,7 +65,6 @@ function startProfile() {
         }]).then(answer => {
             const newEngineer = new Engineer(answer.name, answer.id, answer.email, answer.github);
             teamMembers.push(newEngineer);
-            teamId.push(answer.id);
             createTeam();
         });
     }
@@ -98,16 +86,10 @@ function startProfile() {
             name: "id",
             message: "What is your Interns's id?",
             validate: answer => {
-                console.log("hi");
-                if (isNAN(answer)) {
-                    return "Please enter numerical value";
-                }
-                if (teamId.includes(answer)) {
-                    return "This id is currently in use."
-                }
-                else {
+                if (answer !== "") {
                     return true;
                 }
+                return "Please enter at least one character."
             }
         },
         {
@@ -115,15 +97,10 @@ function startProfile() {
             name: "email",
             message: "What is your Intern's email?",
             validate: answer => {
-                var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-                if (answer.match(mailformat)) {
-                    alert("Valid email address!");
+                if (answer !== "") {
                     return true;
                 }
-                else {
-                    alert("You have entered an invalid email address!");
-                    return false;
-                }
+                return "Please enter at least one character."
             }
         },
         {
@@ -139,7 +116,6 @@ function startProfile() {
         }]).then(answer => {
             const newIntern = new Intern(answer.name, answer.id, answer.email, answer.school);
             teamMembers.push(newIntern);
-            teamId.push(answer.id);
             createTeam();
         });
     }
@@ -160,32 +136,16 @@ function startProfile() {
             type: "input",
             name: "id",
             message: "What is your id?",
-            validate: answer => {
-                if (isNAN(answer)) {
-                    return "Please enter numerical value";
-                }
-                if (teamId.includes(answer)) {
-                    return "This id is currently in use."
-                }
-                else {
-                    return true;
-                }
-            }
         },
         {
             type: "input",
             name: "email",
             message: "What is your email?",
             validate: answer => {
-                var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-                if (answer.match(mailformat)) {
-                    alert("Valid email address!");
+                if (answer !== "") {
                     return true;
                 }
-                else {
-                    alert("You have entered an invalid email address!");
-                    return false;
-                }
+                return "Please enter at least one character."
             }
         },
         {
@@ -201,7 +161,6 @@ function startProfile() {
         }]).then(answer => {
             const newManager = new Manager(answer.name, answer.id, answer.email, answer.officeNumber);
             teamMembers.push(newManager);
-            teamId.push(answer.id);
             createTeam();
         });
     }
